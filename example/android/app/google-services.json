@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "897211926051",
+    "firebase_url": "https://pub-firefly.firebaseio.com",
+    "project_id": "pub-firefly",
+    "storage_bucket": "pub-firefly.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897211926051:android:c35719f2b4fc57ec2b5396",
+        "android_client_info": {
+          "package_name": "com.firefly.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "897211926051-k2j3fnb1sqlclbdqt1gga4pntpbui7hc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT1Oq-3WactcSoM_CGovfbLk-0kY7-CBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "897211926051-k2j3fnb1sqlclbdqt1gga4pntpbui7hc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "897211926051-6imqffb5ajlm8ubgqm3abqtcnajqn65v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firefly.example"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
