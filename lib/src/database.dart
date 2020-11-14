@@ -1,13 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:firefly/src/models/error.dart';
+import 'package:firefly/src/models/query.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Query;
-import '../firefly.dart';
 
 class Database {
+  final BuildContext context;
   final Query query;
 
-  Database(this.query);
+  Database(this.context, this.query);
 
   Future<Stream<QuerySnapshot>> collectionStream(String collection) async {
-    final collectionRef = FirebaseFirestore.instance.collection(collection);
+    final instance = Provider.of<FirebaseFirestore>(context);
+    final collectionRef = instance.collection(collection);
 
     if (await _checkIfDocExist(collectionRef)) {
       if (query != null) {

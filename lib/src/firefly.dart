@@ -1,9 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Query;
-
-import '../firefly.dart';
+import 'package:firefly/src/models/query.dart';
+import 'package:firefly/src/database.dart';
+import 'package:firefly/src/firefly_provider.dart';
 
 class Firefly<@required T> extends StatelessWidget {
   final String collection;
@@ -25,7 +25,7 @@ class Firefly<@required T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Database(query).collectionStream(collection),
+      future: Database(context, query).collectionStream(collection),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
@@ -56,7 +56,7 @@ class Firefly<@required T> extends StatelessWidget {
     );
   }
 
-  // Mappning och data manipulation
+  // Mapping and data manipulation
 
   List<T> _mapStreamToState(QuerySnapshot snapshot, BuildContext context) {
     final documentList = snapshot.docs;
@@ -80,13 +80,13 @@ class Firefly<@required T> extends StatelessWidget {
     return result.first.builder(snapshot.data());
   }
 
-  // Validering
+  // Validation
 
   bool _nullValidator(value) {
     return value != null ? true : false;
   }
 
-  // Response byggare
+  // Response builders
 
   dynamic _buildSnapshotResult(BuildContext context, QuerySnapshot snapshot) {
     if (_nullValidator(builder)) {
