@@ -8,6 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^0.5.2
+  cloud_firestore: ^0.14.3
   firefly:
     path: ../
 
