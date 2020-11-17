@@ -25,7 +25,7 @@ class Firefly<@required T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Database(context, query).collectionStream(collection),
+      future: Database(context).collectionStream(collection, query),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
