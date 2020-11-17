@@ -1,3 +1,7 @@
+# 0.1.1
+
+- Fixes broken path on Readme image 
+
 # 0.1.0
 
 Initial Version of the package.
