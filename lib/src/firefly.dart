@@ -6,6 +6,12 @@ import 'package:firefly/src/database.dart';
 import 'package:firefly/src/firefly_provider.dart';
 
 class Firefly<@required T> extends StatelessWidget {
+  /// Pass the name of the Firestore Collection and
+  /// expect constructed objects in the builder callbacks.
+  ///
+  /// Its required to pass a type [<T>] so Firefly
+  /// know what to constuct.
+
   final String collection;
   final Query query;
   final Widget loading;

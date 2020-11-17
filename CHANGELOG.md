@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+# 0.1.0
 
-* TODO: Describe initial release.
+Initial Version of the package.
+
+- Includes the `FlutterProvider` widget to provide the Firefly children with a reference to the database.
+- Includes the `Firefly` widget.
+- Firefly allows for `builder` and `listBuilder`.

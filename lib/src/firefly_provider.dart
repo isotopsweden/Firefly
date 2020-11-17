@@ -10,6 +10,11 @@ class FireflyDataBuilder {
 }
 
 class FireflyProvider extends StatelessWidget {
+  /// Handles the Firesore instance so it can be accessed from
+  /// all the Firefly widgets.
+  ///
+  /// Also need a list of [FireflyDataBuilder] so the Firefly
+  /// widgets know how to create objects.
   final Widget child;
   final FirebaseFirestore instance;
   final List<FireflyDataBuilder> modelbuilderList;
