@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/isotopsweden/Firefly/blob/master/assets/firefly_logo.png" alt="Firefly Package" />
+<img src="https://raw.githubusercontent.com/isotopsweden/Firefly/master/assets/firefly_logo.png" alt="Firefly Package Logo" />
 </p
 
 ---

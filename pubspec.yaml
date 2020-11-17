@@ -1,6 +1,6 @@
 name: firefly
 description: A lightweight Flutter Widget for interacting with your Firestore database.
-version: 0.1.0
+version: 0.1.1
 homepage: https://www.isotop.se/
 issue_tracker: https://github.com/isotopsweden/Firefly/issues
 repository: https://github.com/isotopsweden/Firefly
