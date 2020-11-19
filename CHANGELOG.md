@@ -1,6 +1,10 @@
+# 0.1.2
+
+ - Fixes misspells and clears up README.md
+
 # 0.1.1
 
-- Fixes broken path on Readme image 
+- Fixes broken path on README.md image 
 
 # 0.1.0
 

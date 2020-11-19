@@ -4,7 +4,7 @@
 
 ---
 
-A lightweight [Flutter](https://flutter.dev) widget that allows for short and clean widget trees when interacting with data from your [Firestore](https://firebase.google.com/products/firestore) database.
+Create beautiful [Flutter](https://flutter.dev) widget trees using this handy [Firestore](https://firebase.google.com/products/firestore) builder widget. 
 
 ## Usage
 
@@ -18,6 +18,7 @@ It´s important to setup Firebase before using any Firefly widgets.
 
 We like to use a FutureBuilder to initialize Firebase.
 
+
 ```dart
 Widget build(BuildContext context) {
     final Future<FirebaseApp> _initialization = Firebase.initializeApp();
@@ -28,7 +29,7 @@ Widget build(BuildContext context) {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return Text('ERROR');
+          return Text('THERE WAS AN ERROR...');
         }
 
         // Once complete, show your application
@@ -37,7 +38,7 @@ Widget build(BuildContext context) {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return Text('LOAD');
+        return Text('LOADING...');
       },
     );
   }
@@ -45,7 +46,8 @@ Widget build(BuildContext context) {
 
 ### Use the FireflyProvider
 
-The `FireflyProvider` will provide all Firefly widgets with the correct instance of your Firestore database. It also needs a list of `FireflyDataBuilder`. The purpose of the FireflyDataBuilder is to provide Firefly with the correct model and constuctor so it can create your objects before passing them back.
+The `FireflyProvider` will provide all Firefly widgets with the correct instance of your Firestore database. It also needs a list of `FireflyDataBuilder`. The purpose of the FireflyDataBuilder is to provide Firefly with the correct model and constuctor so it can create your objects before you can access them in the various builder parameters.
+
 
 ```dart
 class FireflyApp extends StatelessWidget {
@@ -74,9 +76,10 @@ class FireflyApp extends StatelessWidget {
 
 `Firefly` requires two things to work correctly.
 The `collection` parameter is used so Firefly knows which Firestore Collection to retrive data from. 
-The type of model expected to returned in the `builder`. Here we expect a Person by adding `<Person>`
+The type object expected to accessed in the various `builder` parametes. Here we expect a Person by adding `<Person>`
 
-We can then use the `builder` to get a list of created `Person`:s, here described as `state`.
+We can then use the `builder` to get a list of `Person` objects, here described as `state`.
+
 
 ```dart
 class App extends StatelessWidget {
@@ -105,7 +108,8 @@ The Firefly widget has a bunch of parameters:
 
 The `builder` is one way to use retrive the created objects. But you can also use the shorthand `listBuilder` to get a already created `ListView` with objects.
 
-You can´t combine many builders, so remember to only use one per Firefly widget.
+___You can´t combine many builders, so remember to only use one per Firefly widget.___
+
 
 ```dart
 Firefly<Person>(
@@ -118,9 +122,10 @@ Firefly<Person>(
 
 You can also query the Firestore directly on the widget. Use the `query` parameter and the `Query` model.
 
-Just make sure you hide the Firestore Query in your import with:
+___Just make sure you hide the Firestore Query in your import with:___
 
 `import 'package:cloud_firestore/cloud_firestore.dart' hide Query;`
+
 
 ```dart
 Firefly<Person>(
@@ -133,6 +138,7 @@ Firefly<Person>(
 ### Override Loading
 
 Want to show another widget when the Firestore is loading. Just override the `loading` parameter with any widget you like.
+
 
 ```dart
 Firefly<Person>(
@@ -148,7 +154,8 @@ Firefly<Person>(
 
 ### Handle Errors
 
-If you get an error reciving your data, handle it with the `error` parameter.
+If you get an error receiving your data, handle it with the `error` parameter.
+
 
 ```dart
 Firefly<Person>(
