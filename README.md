@@ -7,7 +7,7 @@
 Create beautiful [Flutter](https://flutter.dev) widget trees using this handy [Firestore](https://firebase.google.com/products/firestore) builder widget. 
 
 ## Extras
-Using VS Code? There is a snippets package for Firefly! [Firefly-snippets](https://marketplace.visualstudio.com/items?itemName=crljvr.firefly-snippets/ "Firefly snippets extension")
+Using VS Code? There is a [snippets extension](https://marketplace.visualstudio.com/items?itemName=crljvr.firefly-snippets/ "Firefly snippets extension") for Firefly!
 
 ## Usage
 
