@@ -12,18 +12,20 @@ class Database {
   Future<Stream<QuerySnapshot>> collectionStream(
       String collection, Query query) async {
     final instance = Provider.of<FirebaseFirestore>(context);
-    final collectionRef = instance.collection(collection);
+    var collectionRef = instance.collection(collection);
+    Stream<QuerySnapshot> snapshots;
 
-    if (await _checkIfDocExist(collectionRef)) {
-      if (query != null) {
-        return _mapMethodToFirebase(collectionRef, query).snapshots();
-      } else {
-        return collectionRef.snapshots();
-      }
+    if (query != null) {
+      snapshots = _mapMethodToFirebase(collectionRef, query).snapshots();
+    } else {
+      snapshots = collectionRef.snapshots();
     }
 
-    buildInternalError(InternalError.noDocumentsExistError);
-    return collectionRef.snapshots();
+    if (await _checkIfDocsExist(snapshots)) {
+      buildInternalError(InternalError.noDocumentsExistError);
+    }
+
+    return snapshots;
   }
 
   _mapMethodToFirebase(CollectionReference collectionRef, Query query) {
@@ -52,8 +54,8 @@ class Database {
     }
   }
 
-  Future<bool> _checkIfDocExist(CollectionReference collectionRef) async {
-    final documents = await collectionRef.get();
-    return documents.docs.isEmpty ? false : true;
+  Future<bool> _checkIfDocsExist(Stream<QuerySnapshot> snapshots) async {
+    final docsAreEmpty = await snapshots.isEmpty;
+    return !docsAreEmpty;
   }
 }
