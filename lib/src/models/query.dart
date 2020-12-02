@@ -9,10 +9,10 @@ enum Queries {
   whereIn,
 }
 
-class Query {
+class Queryyy {
   final String value;
 
-  Query(this.value);
+  Queryyy(this.value);
 
   Queries method;
   dynamic comparer;

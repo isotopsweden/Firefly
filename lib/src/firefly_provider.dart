@@ -1,3 +1,4 @@
+import 'package:firefly/firefly.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,12 +18,14 @@ class FireflyProvider extends StatelessWidget {
   /// widgets know how to create objects.
   final Widget child;
   final FirebaseFirestore instance;
+  // final List<Queryyy> defaultQueries;
   final List<FireflyDataBuilder> modelbuilderList;
 
   const FireflyProvider({
     Key key,
     this.child,
     this.modelbuilderList,
+    // this.defaultQueries,
     @required this.instance,
   }) : super(key: key);
 
@@ -31,6 +34,7 @@ class FireflyProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<FirebaseFirestore>(create: (_) => instance),
+        // Provider<List<Queryyy>>(create: (_) => defaultQueries),
         Provider<List<FireflyDataBuilder>>(
             create: (_) => [...modelbuilderList]),
       ],
