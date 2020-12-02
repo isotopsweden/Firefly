@@ -18,14 +18,14 @@ class FireflyProvider extends StatelessWidget {
   /// widgets know how to create objects.
   final Widget child;
   final FirebaseFirestore instance;
-  // final List<Queryyy> defaultQueries;
+  final List<Queryyy> defaultQueries;
   final List<FireflyDataBuilder> modelbuilderList;
 
   const FireflyProvider({
     Key key,
     this.child,
     this.modelbuilderList,
-    // this.defaultQueries,
+    this.defaultQueries,
     @required this.instance,
   }) : super(key: key);
 
@@ -34,7 +34,7 @@ class FireflyProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<FirebaseFirestore>(create: (_) => instance),
-        // Provider<List<Queryyy>>(create: (_) => defaultQueries),
+        Provider<List<Queryyy>>(create: (_) => [...defaultQueries]),
         Provider<List<FireflyDataBuilder>>(
             create: (_) => [...modelbuilderList]),
       ],

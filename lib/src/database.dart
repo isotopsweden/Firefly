@@ -10,32 +10,39 @@ class Database {
   Database(this.context);
 
   Future<Stream<QuerySnapshot>> collectionStream(
-      String collection, Queryyy query) async {
-    final instance = Provider.of<FirebaseFirestore>(context);
-    var collectionRef = instance.collection(collection);
+      String collection, List<Queryyy> queries) async {
+    final queryList = [];
+
+    FirebaseFirestore instance = Provider.of<FirebaseFirestore>(context);
+    List<Queryyy> defaultQuery = Provider.of<List<Queryyy>>(context);
+    CollectionReference collectionRef = instance.collection(collection);
     Stream<QuerySnapshot> snapshots;
 
-    final defaultQuery = Queryyy('age')..isEqualTo(2);
-    final extraQuery = Queryyy('name')..isEqualTo('Teal');
+    if (defaultQuery != null) {
+      defaultQuery.forEach((q) => queryList.add(q));
+    }
 
-    snapshots =
-        _mapQueries(collectionRef, [defaultQuery, extraQuery]).snapshots();
+    if (queries != null) {
+      queries.forEach((q) => queryList.add(q));
+    }
 
-    print("3: $snapshots");
+    // KEEP WORKING HERE!
+
+    snapshots = queryList.isNotEmpty
+        ? _mapQueries(collectionRef, [...queryList]).snapshots()
+        : collectionRef.snapshots();
+
     return snapshots;
   }
 
   Query _mapQueries(CollectionReference collectionRef, List<Queryyy> queries) {
-    Query a = collectionRef;
+    Query returnQuery = collectionRef;
 
     if (queries != null) {
       queries.forEach((element) {
-        print("1: ${element.method}");
-        a = _mapMethodToFirebase(a, element);
-        print("1.5: $a");
+        returnQuery = _mapMethodToFirebase(returnQuery, element);
       });
-      print("2: $a");
-      return a;
+      return returnQuery;
     } else {
       return collectionRef;
     }
@@ -85,10 +92,5 @@ class Database {
     } else {
       return collectionRef;
     }
-  }
-
-  Future<bool> _checkIfDocsExist(Stream<QuerySnapshot> snapshots) async {
-    final docsAreEmpty = await snapshots.isEmpty;
-    return !docsAreEmpty;
   }
 }

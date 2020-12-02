@@ -13,7 +13,7 @@ class Firefly<@required T> extends StatelessWidget {
   /// know what to constuct.
 
   final String collection;
-  final Queryyy query;
+  final List<Queryyy> queries;
   final Widget loading;
   final Function(dynamic) error;
   final Function(BuildContext, List<T>) builder;
@@ -21,7 +21,7 @@ class Firefly<@required T> extends StatelessWidget {
 
   const Firefly({
     @required this.collection,
-    this.query,
+    this.queries,
     this.loading,
     this.error,
     this.listBuilder,
@@ -31,7 +31,7 @@ class Firefly<@required T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Database(context).collectionStream(collection, query),
+      future: Database(context).collectionStream(collection, queries),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
