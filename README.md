@@ -134,7 +134,18 @@ ___Just make sure you hide the Firestore Query in your import with:___
 Firefly<Person>(
   collection: 'persons',
   listBuilder: (context, state, index) => Text(state[index].name),
-  query: Query('age')..isEqualTo(22),
+  queries: [Query('age')..isEqualTo(22)],
+),
+```
+
+**Default queries** can be defined on the FireflyProvider. These will be applied on all usages of the Firefly widget.
+
+```dart
+FireflyProvider(
+  defaultQueries: [Query('age')..isEqualTo(22)],
+  instance: FirebaseFirestore.instance,
+  modelbuilderList: [...],
+  child: ...
 ),
 ```
 

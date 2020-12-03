@@ -16,6 +16,9 @@ class FireflyProvider extends StatelessWidget {
   ///
   /// Also need a list of [FireflyDataBuilder] so the Firefly
   /// widgets know how to create objects.
+  ///
+  /// You can add a list of [Query] to be applied on all
+  /// requests using the [defaultQueries] parameter.
   final Widget child;
   final List<Query> defaultQueries;
   final FirebaseFirestore instance;

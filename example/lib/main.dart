@@ -62,6 +62,8 @@ class Setup extends StatelessWidget {
           /// It need an instance of your Firestore and
           /// a list of [FireflyDataBuilders] for creating
           /// objects to return.
+          /// If you want queries used on all the request,
+          /// use the [defaultQueries] parameter.
           return FireflyProvider(
             instance: firestore,
             modelbuilderList: buildList,
@@ -115,7 +117,8 @@ class ListBuilder extends StatelessWidget {
 }
 
 /// You can also query the Firestore directly on the widget.
-/// Use the [query] parameter and the [Query] model.
+/// Use the [queries] parameter and the [Query] model.
+/// You can chain multiple queries
 class QueryFirestore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -124,7 +127,7 @@ class QueryFirestore extends StatelessWidget {
         child: Firefly<Person>(
           collection: 'players',
           listBuilder: (context, state, index) => Text(state[index].name),
-          query: Query('age')..isEqualTo(22),
+          queries: [Query('age')..isEqualTo(22)],
         ),
       ),
     );

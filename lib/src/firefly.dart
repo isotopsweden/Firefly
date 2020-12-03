@@ -10,7 +10,7 @@ class Firefly<@required T> extends StatelessWidget {
   /// expect constructed objects in the builder callbacks.
   ///
   /// Its required to pass a type [<T>] so Firefly
-  /// know what to constuct.
+  /// knows what to constuct.
 
   final String collection;
   final List<Query> queries;
