@@ -47,11 +47,9 @@ class Firefly<@required T> extends StatelessWidget {
   }
 
   StreamBuilder _buildStreamResult(Stream<QuerySnapshot> stream) {
-    print(stream);
     return StreamBuilder<QuerySnapshot>(
       stream: stream,
       builder: (context, snapshot) {
-        print(snapshot.connectionState);
         switch (snapshot.connectionState) {
           case ConnectionState.active:
             return snapshot.hasError
@@ -85,8 +83,6 @@ class Firefly<@required T> extends StatelessWidget {
         .where((datamodel) => datamodel.model.toString() == T.toString())
         .toList();
 
-    print(result);
-
     return result.first.builder(snapshot.data());
   }
 
@@ -104,13 +100,11 @@ class Firefly<@required T> extends StatelessWidget {
     }
 
     if (_nullValidator(listBuilder)) {
-      print(snapshot);
       return _buildListBuilder(snapshot, context);
     }
   }
 
   ListView _buildListBuilder(QuerySnapshot snapshot, context) {
-    print(snapshot);
     final state = _mapStreamToState(snapshot, context);
 
     return ListView.builder(
