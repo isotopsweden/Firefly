@@ -18,20 +18,22 @@ class Firefly<@required T> extends StatelessWidget {
   final Function(dynamic) error;
   final Function(BuildContext, List<T>) builder;
   final Function(BuildContext, List<T>, int) listBuilder;
+  final bool excludeFromDefultQueries;
 
-  const Firefly({
-    @required this.collection,
-    this.queries,
-    this.loading,
-    this.error,
-    this.listBuilder,
-    this.builder,
-  });
+  const Firefly(
+      {@required this.collection,
+      this.queries,
+      this.loading,
+      this.error,
+      this.listBuilder,
+      this.builder,
+      this.excludeFromDefultQueries = false});
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Database(context).collectionStream(collection, queries),
+      future: Database(context)
+          .collectionStream(collection, queries, excludeFromDefultQueries),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:

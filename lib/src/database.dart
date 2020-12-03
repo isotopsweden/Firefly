@@ -8,20 +8,22 @@ class Database {
 
   Database(this.context);
 
-  Future<Stream<QuerySnapshot>> collectionStream(
-      String collection, List<Query> queries) async {
+  Future<Stream<QuerySnapshot>> collectionStream(String collection,
+      List<Query> queries, bool excludeFromDefultQueries) async {
     var defaultQuery;
 
     List<Query> queryList = [];
     FirebaseFirestore instance = Provider.of<FirebaseFirestore>(context);
     CollectionReference collectionRef = instance.collection(collection);
 
-    try {
-      defaultQuery = Provider.of<List<Query>>(context);
-    } catch (_) {}
+    if (!excludeFromDefultQueries) {
+      try {
+        defaultQuery = Provider.of<List<Query>>(context);
+      } catch (_) {}
 
-    if (defaultQuery != null) {
-      defaultQuery.forEach((q) => queryList.add(q));
+      if (defaultQuery != null) {
+        defaultQuery.forEach((q) => queryList.add(q));
+      }
     }
 
     if (queries != null) {

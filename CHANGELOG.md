@@ -1,3 +1,7 @@
+# 0.3.0
+
+ - Firefly widget can now opt out of default queries specified on the provider
+
 # 0.2.0
 
  - Firefly widget now supports multiple queries
