@@ -1,3 +1,8 @@
+# 0.2.0
+
+ - Firefly widget now supports multiple queries
+ - FireflyProvider widget now supports multiple default queries
+
 # 0.1.2
 
  - Fixes misspells and clears up README.md
