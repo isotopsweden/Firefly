@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firefly/src/models/error.dart';
 import 'package:firefly/src/models/query.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Query;
 
@@ -10,25 +9,40 @@ class Database {
   Database(this.context);
 
   Future<Stream<QuerySnapshot>> collectionStream(
-      String collection, Query query) async {
-    final instance = Provider.of<FirebaseFirestore>(context);
-    var collectionRef = instance.collection(collection);
-    Stream<QuerySnapshot> snapshots;
+      String collection, List<Query> queries) async {
+    var defaultQuery;
 
-    if (query != null) {
-      snapshots = _mapMethodToFirebase(collectionRef, query).snapshots();
-    } else {
-      snapshots = collectionRef.snapshots();
+    List<Query> queryList = [];
+    FirebaseFirestore instance = Provider.of<FirebaseFirestore>(context);
+    CollectionReference collectionRef = instance.collection(collection);
+
+    try {
+      defaultQuery = Provider.of<List<Query>>(context);
+    } catch (_) {}
+
+    if (defaultQuery != null) {
+      defaultQuery.forEach((q) => queryList.add(q));
     }
 
-    if (await _checkIfDocsExist(snapshots)) {
-      buildInternalError(InternalError.noDocumentsExistError);
+    if (queries != null) {
+      queries.forEach((q) => queryList.add(q));
     }
 
-    return snapshots;
+    return queryList.isNotEmpty
+        ? _mapQueries(collectionRef, [...queryList]).snapshots()
+        : collectionRef.snapshots();
   }
 
-  _mapMethodToFirebase(CollectionReference collectionRef, Query query) {
+  _mapQueries(collectionRef, List<Query> queries) {
+    var returnQuery = collectionRef;
+
+    queries.forEach(
+        (element) => returnQuery = _mapMethodToFirebase(returnQuery, element));
+
+    return returnQuery;
+  }
+
+  _mapMethodToFirebase(collectionRef, Query query) {
     switch (query.method) {
       case Queries.isEqualTo:
         return collectionRef.where(query.value, isEqualTo: query.comparer);
@@ -52,10 +66,5 @@ class Database {
       default:
         return collectionRef;
     }
-  }
-
-  Future<bool> _checkIfDocsExist(Stream<QuerySnapshot> snapshots) async {
-    final docsAreEmpty = await snapshots.isEmpty;
-    return !docsAreEmpty;
   }
 }

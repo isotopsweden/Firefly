@@ -47,7 +47,6 @@ class Query {
     comparer = value;
   }
 
-// TEST THESE
   arrayContainsAny(List<dynamic> value) {
     method = Queries.arrayContainsAny;
     comparer = value;

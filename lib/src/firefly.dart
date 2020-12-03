@@ -10,10 +10,10 @@ class Firefly<@required T> extends StatelessWidget {
   /// expect constructed objects in the builder callbacks.
   ///
   /// Its required to pass a type [<T>] so Firefly
-  /// know what to constuct.
+  /// knows what to constuct.
 
   final String collection;
-  final Query query;
+  final List<Query> queries;
   final Widget loading;
   final Function(dynamic) error;
   final Function(BuildContext, List<T>) builder;
@@ -21,7 +21,7 @@ class Firefly<@required T> extends StatelessWidget {
 
   const Firefly({
     @required this.collection,
-    this.query,
+    this.queries,
     this.loading,
     this.error,
     this.listBuilder,
@@ -31,7 +31,7 @@ class Firefly<@required T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Database(context).collectionStream(collection, query),
+      future: Database(context).collectionStream(collection, queries),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
