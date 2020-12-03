@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:firefly/src/models/error.dart';
 import 'package:firefly/src/models/query.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,11 +11,15 @@ class Database {
   Future<Stream<QuerySnapshot>> collectionStream(
       String collection, List<Queryyy> queries) async {
     final queryList = [];
+    var defaultQuery;
 
     FirebaseFirestore instance = Provider.of<FirebaseFirestore>(context);
-    List<Queryyy> defaultQuery = Provider.of<List<Queryyy>>(context);
     CollectionReference collectionRef = instance.collection(collection);
     Stream<QuerySnapshot> snapshots;
+
+    try {
+      defaultQuery = Provider.of<List<Queryyy>>(context);
+    } catch (_) {}
 
     if (defaultQuery != null) {
       defaultQuery.forEach((q) => queryList.add(q));
@@ -26,13 +29,9 @@ class Database {
       queries.forEach((q) => queryList.add(q));
     }
 
-    // KEEP WORKING HERE!
-
-    snapshots = queryList.isNotEmpty
+    return queryList.isNotEmpty
         ? _mapQueries(collectionRef, [...queryList]).snapshots()
         : collectionRef.snapshots();
-
-    return snapshots;
   }
 
   Query _mapQueries(CollectionReference collectionRef, List<Queryyy> queries) {
