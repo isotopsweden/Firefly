@@ -9,10 +9,10 @@ enum Queries {
   whereIn,
 }
 
-class Queryyy {
+class Query {
   final String value;
 
-  Queryyy(this.value);
+  Query(this.value);
 
   Queries method;
   dynamic comparer;
@@ -47,7 +47,6 @@ class Queryyy {
     comparer = value;
   }
 
-// TEST THESE
   arrayContainsAny(List<dynamic> value) {
     method = Queries.arrayContainsAny;
     comparer = value;

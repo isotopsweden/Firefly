@@ -13,7 +13,7 @@ class Firefly<@required T> extends StatelessWidget {
   /// know what to constuct.
 
   final String collection;
-  final List<Queryyy> queries;
+  final List<Query> queries;
   final Widget loading;
   final Function(dynamic) error;
   final Function(BuildContext, List<T>) builder;

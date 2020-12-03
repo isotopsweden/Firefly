@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firefly/src/models/query.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Query;
 
 class Database {
   final BuildContext context;
@@ -9,16 +9,15 @@ class Database {
   Database(this.context);
 
   Future<Stream<QuerySnapshot>> collectionStream(
-      String collection, List<Queryyy> queries) async {
-    final queryList = [];
+      String collection, List<Query> queries) async {
     var defaultQuery;
 
+    List<Query> queryList = [];
     FirebaseFirestore instance = Provider.of<FirebaseFirestore>(context);
     CollectionReference collectionRef = instance.collection(collection);
-    Stream<QuerySnapshot> snapshots;
 
     try {
-      defaultQuery = Provider.of<List<Queryyy>>(context);
+      defaultQuery = Provider.of<List<Query>>(context);
     } catch (_) {}
 
     if (defaultQuery != null) {
@@ -34,62 +33,38 @@ class Database {
         : collectionRef.snapshots();
   }
 
-  Query _mapQueries(CollectionReference collectionRef, List<Queryyy> queries) {
-    Query returnQuery = collectionRef;
+  _mapQueries(collectionRef, List<Query> queries) {
+    var returnQuery = collectionRef;
 
-    if (queries != null) {
-      queries.forEach((element) {
-        returnQuery = _mapMethodToFirebase(returnQuery, element);
-      });
-      return returnQuery;
-    } else {
-      return collectionRef;
-    }
+    queries.forEach(
+        (element) => returnQuery = _mapMethodToFirebase(returnQuery, element));
+
+    return returnQuery;
   }
 
-  Query _mapMethodToFirebase(Query collectionRef, Queryyy query) {
-    var collection;
-    if (query != null) {
-      switch (query.method) {
-        case Queries.isEqualTo:
-          collection =
-              collectionRef.where(query.value, isEqualTo: query.comparer);
-          break;
-        case Queries.isLessThan:
-          collection =
-              collectionRef.where(query.value, isLessThan: query.comparer);
-          break;
-        case Queries.isLessThanOrEqualTo:
-          collection = collectionRef.where(query.value,
-              isLessThanOrEqualTo: query.comparer);
-          break;
-        case Queries.isGreaterThan:
-          collection =
-              collectionRef.where(query.value, isGreaterThan: query.comparer);
-          break;
-        case Queries.isGreaterThanOrEqualTo:
-          collection = collectionRef.where(query.value,
-              isGreaterThanOrEqualTo: query.comparer);
-          break;
-        case Queries.arrayContains:
-          collection =
-              collectionRef.where(query.value, arrayContains: query.comparer);
-          break;
-        case Queries.arrayContainsAny:
-          collection = collectionRef.where(query.value,
-              arrayContainsAny: query.comparer);
-          break;
-        case Queries.whereIn:
-          collection =
-              collectionRef.where(query.value, whereIn: query.comparer);
-          break;
-        default:
-          collection = collectionRef;
-      }
-
-      return collection;
-    } else {
-      return collectionRef;
+  _mapMethodToFirebase(collectionRef, Query query) {
+    switch (query.method) {
+      case Queries.isEqualTo:
+        return collectionRef.where(query.value, isEqualTo: query.comparer);
+      case Queries.isLessThan:
+        return collectionRef.where(query.value, isLessThan: query.comparer);
+      case Queries.isLessThanOrEqualTo:
+        return collectionRef.where(query.value,
+            isLessThanOrEqualTo: query.comparer);
+      case Queries.isGreaterThan:
+        return collectionRef.where(query.value, isGreaterThan: query.comparer);
+      case Queries.isGreaterThanOrEqualTo:
+        return collectionRef.where(query.value,
+            isGreaterThanOrEqualTo: query.comparer);
+      case Queries.arrayContains:
+        return collectionRef.where(query.value, arrayContains: query.comparer);
+      case Queries.arrayContainsAny:
+        return collectionRef.where(query.value,
+            arrayContainsAny: query.comparer);
+      case Queries.whereIn:
+        return collectionRef.where(query.value, whereIn: query.comparer);
+      default:
+        return collectionRef;
     }
   }
 }

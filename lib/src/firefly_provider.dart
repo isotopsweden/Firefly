@@ -1,7 +1,7 @@
 import 'package:firefly/firefly.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Query;
 
 class FireflyDataBuilder {
   final Type model;
@@ -17,16 +17,16 @@ class FireflyProvider extends StatelessWidget {
   /// Also need a list of [FireflyDataBuilder] so the Firefly
   /// widgets know how to create objects.
   final Widget child;
+  final List<Query> defaultQueries;
   final FirebaseFirestore instance;
-  final List<Queryyy> defaultQueries;
   final List<FireflyDataBuilder> modelbuilderList;
 
   const FireflyProvider({
     Key key,
-    this.child,
-    this.modelbuilderList,
     this.defaultQueries,
+    @required this.child,
     @required this.instance,
+    @required this.modelbuilderList,
   }) : super(key: key);
 
   @override
@@ -34,7 +34,7 @@ class FireflyProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<FirebaseFirestore>(create: (_) => instance),
-        Provider<List<Queryyy>>(create: (_) => [...defaultQueries]),
+        Provider<List<Query>>(create: (_) => [...defaultQueries]),
         Provider<List<FireflyDataBuilder>>(
             create: (_) => [...modelbuilderList]),
       ],
