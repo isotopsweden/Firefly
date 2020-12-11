@@ -17,7 +17,7 @@ class Database<T> {
   ) async {
     var defaultQuery;
     var snapshots;
-    var hasRunnedInitial = false;
+    var hasRunInitial = false;
 
     List<Query> queryList = [];
     FirebaseFirestore instance = Provider.of<FirebaseFirestore>(context);
@@ -44,9 +44,11 @@ class Database<T> {
         : collectionRef.snapshots();
 
     if (onChange != null) {
-      snapshots.listen((data) => hasRunnedInitial
-          ? _handleOnChange(data, onChange, builders)
-          : hasRunnedInitial = true);
+      snapshots.listen(
+        (data) => hasRunInitial
+            ? _handleOnChange(data, onChange, builders)
+            : hasRunInitial = true,
+      );
     }
 
     return snapshots;
