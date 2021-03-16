@@ -1,3 +1,7 @@
+# 0.5.1
+
+ - Removes the Flutter SDK upper bound in pubspec
+
 # 0.5.0
 
  - Bumps `Provider` and `Cloud Firestore` packages
