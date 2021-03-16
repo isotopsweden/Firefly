@@ -1,3 +1,7 @@
+# 0.5.0
+
+ - Bumps `Provider` and `Cloud Firestore` packages
+
 # 0.4.0
 
  - Firefly widget now has a `onChange` parameter sending out an event every time collection changes passing out the changed document
