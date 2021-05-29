@@ -7,7 +7,10 @@ class FireflyDataBuilder {
   final Type model;
   final Function builder;
 
-  FireflyDataBuilder({this.model, this.builder});
+  FireflyDataBuilder({
+    required this.model,
+    required this.builder,
+  });
 }
 
 class FireflyProvider extends StatelessWidget {
@@ -20,16 +23,16 @@ class FireflyProvider extends StatelessWidget {
   /// You can add a list of [Query] to be applied on all
   /// requests using the [defaultQueries] parameter.
   final Widget child;
-  final List<Query> defaultQueries;
+  final List<Query>? defaultQueries;
   final FirebaseFirestore instance;
   final List<FireflyDataBuilder> modelbuilderList;
 
   const FireflyProvider({
-    Key key,
+    Key? key,
     this.defaultQueries,
-    @required this.child,
-    @required this.instance,
-    @required this.modelbuilderList,
+    required this.child,
+    required this.instance,
+    required this.modelbuilderList,
   }) : super(key: key);
 
   @override
@@ -37,7 +40,8 @@ class FireflyProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<FirebaseFirestore>(create: (_) => instance),
-        Provider<List<Query>>(create: (_) => [...defaultQueries]),
+        if (defaultQueries != null)
+          Provider<List<Query>>(create: (_) => [...defaultQueries!]),
         Provider<List<FireflyDataBuilder>>(
             create: (_) => [...modelbuilderList]),
       ],

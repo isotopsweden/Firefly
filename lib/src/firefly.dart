@@ -13,16 +13,16 @@ class Firefly<@required T> extends StatelessWidget {
   /// knows what to constuct.
 
   final String collection;
-  final List<Query> queries;
-  final Widget loading;
-  final Function(dynamic) error;
-  final Function(BuildContext, List<T>) builder;
-  final Function(BuildContext, List<T>, int) listBuilder;
-  final Function(T) onChange;
-  final bool excludeFromDefultQueries;
+  final List<Query>? queries;
+  final Widget? loading;
+  final Function(dynamic)? error;
+  final Function(BuildContext, List<T>)? builder;
+  final Function(BuildContext, List<T>, int)? listBuilder;
+  final Function(T)? onChange;
+  final bool? excludeFromDefultQueries;
 
   const Firefly({
-    @required this.collection,
+    required this.collection,
     this.queries,
     this.loading,
     this.error,
@@ -55,7 +55,7 @@ class Firefly<@required T> extends StatelessWidget {
     );
   }
 
-  StreamBuilder _buildStreamResult(Stream<QuerySnapshot> stream) {
+  StreamBuilder _buildStreamResult(stream) {
     return StreamBuilder<QuerySnapshot>(
       stream: stream,
       builder: (context, snapshot) {
@@ -103,12 +103,12 @@ class Firefly<@required T> extends StatelessWidget {
 
   // Response builders
 
-  dynamic _buildSnapshotResult(BuildContext context, QuerySnapshot snapshot) {
-    if (_nullValidator(builder)) {
-      return builder(context, _mapStreamToState(snapshot, context));
+  dynamic _buildSnapshotResult(BuildContext context, snapshot) {
+    if (builder != null) {
+      return builder!(context, _mapStreamToState(snapshot, context));
     }
 
-    if (_nullValidator(listBuilder)) {
+    if (listBuilder != null) {
       return _buildListBuilder(snapshot, context);
     }
   }
@@ -120,7 +120,7 @@ class Firefly<@required T> extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemCount: state.length,
-      itemBuilder: (context, index) => listBuilder(context, state, index),
+      itemBuilder: (context, index) => listBuilder!(context, state, index),
     );
   }
 

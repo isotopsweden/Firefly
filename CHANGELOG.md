@@ -1,3 +1,7 @@
+# 1.0.0
+
+ - Migrates to null safety
+
 # 0.5.1
 
  - Removes the Flutter SDK upper bound in pubspec

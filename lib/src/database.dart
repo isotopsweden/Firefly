@@ -11,9 +11,9 @@ class Database<T> {
 
   Future<Stream<QuerySnapshot>> collectionStream(
     String collection,
-    List<Query> queries,
-    bool excludeFromDefultQueries,
-    Function(T) onChange,
+    List<Query>? queries,
+    bool? excludeFromDefultQueries,
+    Function(T)? onChange,
   ) async {
     var defaultQuery;
     var snapshots;
@@ -25,7 +25,7 @@ class Database<T> {
         Provider.of<List<FireflyDataBuilder>>(context);
     CollectionReference collectionRef = instance.collection(collection);
 
-    if (!excludeFromDefultQueries) {
+    if (excludeFromDefultQueries != null && !excludeFromDefultQueries) {
       try {
         defaultQuery = Provider.of<List<Query>>(context);
       } catch (_) {}

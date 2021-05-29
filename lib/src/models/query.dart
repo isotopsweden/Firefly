@@ -14,7 +14,7 @@ class Query {
 
   Query(this.value);
 
-  Queries method;
+  late Queries method;
   dynamic comparer;
 
   isEqualTo(value) {

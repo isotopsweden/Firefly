@@ -1,19 +1,19 @@
 name: firefly
 description: A small Flutter Firestore builder widget for clean widget trees.
-version: 0.5.1
+version: 1.0.0
 homepage: https://www.isotop.se/
 issue_tracker: https://github.com/isotopsweden/Firefly/issues
 repository: https://github.com/isotopsweden/Firefly
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^0.16.0+1
-  provider: ^4.3.3
+  cloud_firestore: ^2.2.0
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
